@@ -4,6 +4,7 @@ body{
 p{
     color:red;
     margin-top: 100px;
+    font-size:20px;
 }
 h2{
     color:white;
@@ -13,4 +14,25 @@ h2{
   border-radius: 10px;  
   border: 1px solid rgb(44, 44, 44);
   box-shadow: 5px 5px 15px rgba(0,0,0,0.3); 
+}
+
+
+.social-icons {
+  margin-top: 12px;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 28px;
+  margin: 0 10px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.25);
+  color: #38bdf8;
+}
+h3{
+
+    color:white;
 }
