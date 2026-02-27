@@ -8,4 +8,9 @@ p{
 h2{
     color:white;
 }
-
+.my-image {
+  width: 350px;        
+  border-radius: 10px;  
+  border: 1px solid rgb(44, 44, 44);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3); 
+}
