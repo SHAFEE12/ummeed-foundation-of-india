@@ -1,8 +1,5 @@
 :root {
-  --bg: #DBE9EE;
- --section-bg: #FFF7E4;     
- 
-  --surface: #C9CAD9;
+ --section-bg: #FFF7E4;    
   --text: #1f2937;
   --muted: #6b7280;
   --line: #e5e7eb;
@@ -12,21 +9,10 @@
   --secondary: #4f9a68;
   --secondary-hover: #3f8356;
   --accent: #0f4c81;
-  --secondary-soft: rgba(79, 154, 104, 0.16);
   --on-primary: #ffffff;
   --radius: 18px;
   --shadow: 0 10px 28px rgba(15, 76, 129, 0.1);
 }
-
-
-/* .section {
-  background: linear-gradient(
-    135deg,
-    #caefd7 0%,
-    #f5bfd7 50%,
-    #abc9e9 100%
-  );
-} */
 
 
 * {
@@ -1687,8 +1673,6 @@ body {
     gap: 10px;
   }
 }
-
-
 
 
 
