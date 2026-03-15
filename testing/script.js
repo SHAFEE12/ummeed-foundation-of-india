@@ -1,6 +1,11 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
 const pageSections = document.querySelectorAll('.section');
+const welcomePopup = document.getElementById('welcomePopup');
+const welcomePopupClose = document.getElementById('welcomePopupClose');
+const welcomePopupDismiss = document.getElementById('welcomePopupDismiss');
+const welcomeVolunteerButton = document.getElementById('welcomeVolunteerButton');
+const welcomeLearnMore = document.getElementById('welcomeLearnMore');
 const mobileNavQuery = window.matchMedia('(max-width: 900px)');
 const fallbackFormspreeEndpoint = 'https://formspree.io/f/mqeyppqb';
 const configuredFormspreeEndpoint = (document.body?.dataset?.formspreeEndpoint || '').trim();
@@ -8,6 +13,108 @@ const formspreeEndpoint = /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(conf
   ? configuredFormspreeEndpoint
   : fallbackFormspreeEndpoint;
 const isFormspreeReady = /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(formspreeEndpoint);
+const welcomePopupSeenKey = 'ummeedWelcomePopupSeen';
+
+function readStorage(storage, key) {
+  try {
+    return storage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+}
+
+function writeStorage(storage, key, value) {
+  try {
+    storage.setItem(key, value);
+  } catch (error) {
+    // Ignore storage write failures so the UI still works in private modes.
+  }
+}
+
+function initWelcomePopup() {
+  if (!(welcomePopup instanceof HTMLElement)) return;
+  if (readStorage(window.localStorage, welcomePopupSeenKey) === 'true') return;
+
+  let hideTimer = null;
+  let showTimer = null;
+
+  const hideWelcomePopup = () => {
+    welcomePopup.classList.remove('is-open');
+    welcomePopup.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('welcome-popup-open');
+
+    if (hideTimer) {
+      window.clearTimeout(hideTimer);
+    }
+
+    hideTimer = window.setTimeout(() => {
+      welcomePopup.hidden = true;
+    }, 240);
+  };
+
+  const showWelcomePopup = () => {
+    if (readStorage(window.localStorage, welcomePopupSeenKey) === 'true') return;
+
+    writeStorage(window.localStorage, welcomePopupSeenKey, 'true');
+    welcomePopup.hidden = false;
+    welcomePopup.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('welcome-popup-open');
+
+    window.requestAnimationFrame(() => {
+      welcomePopup.classList.add('is-open');
+      if (welcomeVolunteerButton instanceof HTMLElement) {
+        welcomeVolunteerButton.focus();
+      } else if (welcomePopupClose instanceof HTMLElement) {
+        welcomePopupClose.focus();
+      }
+    });
+  };
+
+  showTimer = window.setTimeout(showWelcomePopup, 2000);
+
+  [welcomePopupClose, welcomePopupDismiss].forEach((button) => {
+    if (!(button instanceof HTMLButtonElement)) return;
+    button.addEventListener('click', () => {
+      if (showTimer) {
+        window.clearTimeout(showTimer);
+      }
+      hideWelcomePopup();
+    });
+  });
+
+  const backdrop = welcomePopup.querySelector('[data-welcome-close]');
+  if (backdrop instanceof HTMLElement) {
+    backdrop.addEventListener('click', () => {
+      if (showTimer) {
+        window.clearTimeout(showTimer);
+      }
+      hideWelcomePopup();
+    });
+  }
+
+  if (welcomeVolunteerButton instanceof HTMLButtonElement) {
+    welcomeVolunteerButton.addEventListener('click', () => {
+      if (showTimer) {
+        window.clearTimeout(showTimer);
+      }
+      hideWelcomePopup();
+    });
+  }
+
+  if (welcomeLearnMore instanceof HTMLAnchorElement) {
+    welcomeLearnMore.addEventListener('click', () => {
+      if (showTimer) {
+        window.clearTimeout(showTimer);
+      }
+      hideWelcomePopup();
+    });
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || welcomePopup.hidden) return;
+    hideWelcomePopup();
+  });
+}
 
 function ensureStatusElement(form) {
   let statusElement = form.querySelector('.form-status');
@@ -1514,6 +1621,7 @@ function initInvolvedSectionModals() {
   });
 }
 
+initWelcomePopup();
 initInvolvedSectionModals();
 
 
