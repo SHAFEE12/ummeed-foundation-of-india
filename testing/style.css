@@ -21,6 +21,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 110px;
 }
 
 body {
@@ -30,6 +31,10 @@ body {
   background: var(--bg);
   background-image: radial-gradient(circle at 15% 0%, rgba(15, 76, 129, 0.08), transparent 30%);
   line-height: 1.6;
+}
+
+body.welcome-popup-open {
+  overflow: hidden;
 }
 
 h1,
@@ -327,7 +332,6 @@ textarea:focus-visible {
   /* Desktop-only hero height increased; tablet/mobile are overridden in media queries below. */
   min-height: 112vh;
   overflow: hidden;
-  --hero-image: url("hero-960.jpg");
   /* Opposite curve depth control for the hero bottom (inward / concave). */
   --hero-curve-depth: clamp(52px, 9vw, 108px);
 }
@@ -337,16 +341,21 @@ textarea:focus-visible {
   position: absolute;
   inset: 0;
   z-index: 0;
-  /* Image + dark overlay combined so ::before can be used for the bottom inward curve. */
-  background:
+  /* Explicit background-image rules are more reliable here than a var() inside shorthand. */
+  background-image:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    var(--hero-image) center/cover no-repeat;
+    url("hero-960.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   transform: scale(1);
 }
 
 @media (min-width: 768px) {
-  .hero {
-    --hero-image: url("hero-1920.jpg");
+  .hero::after {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("hero-1920.jpg");
   }
 }
 
@@ -1223,6 +1232,141 @@ textarea:focus {
   transform: translateY(1px);
 }
 
+.welcome-popup[hidden] {
+  display: none;
+}
+
+.welcome-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 480;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.welcome-popup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.56);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.welcome-popup-panel {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 92vw);
+  padding: 30px 28px 26px;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96)),
+    radial-gradient(circle at top right, rgba(79, 154, 104, 0.14), transparent 40%);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.26);
+  color: var(--text);
+  transform: translateY(18px) scale(0.98);
+  opacity: 0;
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.welcome-popup.is-open .welcome-popup-panel {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.welcome-popup-image {
+  width: 100%;
+  height: clamp(170px, 28vw, 220px);
+  object-fit: cover;
+  border-radius: 18px;
+  margin: 0 0 20px;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.16);
+}
+
+.welcome-popup-eyebrow {
+  margin: 0 0 10px;
+  color: var(--secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.welcome-popup h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+  color: var(--primary);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+  padding-block: 0;
+}
+
+.welcome-popup p:last-of-type {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.welcome-popup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.welcome-popup-learn {
+  background: rgba(15, 76, 129, 0.1);
+  border-color: rgba(15, 76, 129, 0.18);
+  color: var(--primary);
+}
+
+.welcome-popup-learn:hover,
+.welcome-popup-learn:focus-visible {
+  background: rgba(15, 76, 129, 0.16);
+  border-color: rgba(15, 76, 129, 0.24);
+  color: var(--primary-hover);
+}
+
+.welcome-popup-secondary {
+  background: rgba(79, 154, 104, 0.12);
+  border-color: rgba(79, 154, 104, 0.2);
+  color: var(--secondary);
+}
+
+.welcome-popup-secondary:hover,
+.welcome-popup-secondary:focus-visible {
+  background: rgba(79, 154, 104, 0.18);
+  border-color: rgba(79, 154, 104, 0.28);
+  color: var(--secondary-hover);
+}
+
+.welcome-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(15, 76, 129, 0.08);
+  color: var(--primary);
+  font-size: 1.55rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.welcome-popup-close:hover,
+.welcome-popup-close:focus-visible {
+  background: rgba(15, 76, 129, 0.14);
+  transform: translateY(-1px);
+}
+
 .lightbox {
   width: min(980px, 94vw);
   border: 0;
@@ -1446,6 +1590,16 @@ textarea:focus {
 
   .hero-grid {
     padding-top: 160px;
+  }
+
+  .welcome-popup-panel {
+    width: min(560px, 92vw);
+    padding: 28px 22px 22px;
+  }
+
+  .welcome-popup-image {
+    height: 190px;
+    margin-bottom: 18px;
   }
 
   #impact .container,
@@ -1731,6 +1885,31 @@ textarea:focus {
   .brand-text {
     max-width: 52vw;
     font-size: 0.76rem;
+  }
+
+  .welcome-popup {
+    padding: 14px;
+  }
+
+  .welcome-popup-panel {
+    width: 100%;
+    padding: 26px 18px 20px;
+    border-radius: 20px;
+  }
+
+  .welcome-popup-image {
+    height: 150px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  .welcome-popup-actions {
+    flex-direction: column;
+  }
+
+  .welcome-popup-actions .btn,
+  .welcome-popup-actions .welcome-popup-secondary {
+    width: 100%;
   }
 
   .menu-toggle {
