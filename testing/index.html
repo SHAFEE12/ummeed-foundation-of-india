@@ -46,7 +46,7 @@
     </div>
   </header>
 
-  <!-- <main id="main-content">
+  <main id="main-content">
 
     
 
@@ -68,17 +68,19 @@
 
     <section id="about" class="section">
       <div class="container about-layout">
-        <article class="about-copy">
+        <article class="about-copy about-panel glass-card">
+          <p class="eyebrow">Who We Are</p>
           <h2>About the Foundation</h2>
-          <p>
-        Ummeed Foundation is a small but growing initiative driven by the belief that even small efforts can create meaningful change. Our goal is to support communities, inspire volunteers, and encourage positive social action.
-
-           <p>we are just at the beginning of our journey, but with dedication, teamwork, and community support, we hope to build an initiative that brings hope and opportunity to many people in the future.</p>
+          <p class="about-intro">
+        Ummeed Foundation of India started with a simple idea: even small efforts can create real change when people work together.
           </p>
-          <h3>Mission</h3>
-          <p>Enable inclusive learning, leadership, and future-ready skills for every student.</p>
-          <h3>Vision</h3>
-          <p>Build an equitable knowledge society powered by informed, confident young minds.</p>
+          <p>
+          We support students through educational guidance, career awareness, and mentorship so they can learn, grow, and achieve their goals.
+          </p>
+          <div class="about-points">
+            <p><strong>Mission:</strong> Our mission is to ensure that every student, no matter their background, has the opportunity to learn, develop leadership, and prepare for the future.</p>
+            <p><strong>Vision:</strong>A world where every young person has access to quality education and the confidence to shape their future.</p>
+          </div>
         </article>
         <figure class="about-media">
           <img src="ummeed poster.png" alt="Students participating in an Ummeed Foundation learning session" loading="lazy" />
@@ -106,7 +108,7 @@
             <h3>Public Speaking Training</h3>
             <p>Confidence-building sessions that improve communication, presentation, and leadership skills.</p>
           </article>
-            <article class="card">
+          <article class="card">
             <h3>Skill Development Workshops</h3>
             <p>Hands-on sessions in digital skills, problem solving, teamwork, and career preparedness.</p>
           </article>
@@ -197,36 +199,44 @@
 
     <section id="gallery" class="section">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Gallery</p>
-          <h2>Moments from our activities</h2>
+        <div class="v-gallery-head">
+          <p class="v-gallery-eyebrow">Gallery</p>
+          <h2 class="v-gallery-title">Moments from our activities</h2>
         </div>
-        <div class="gallery-marquee">
-          <div class="gallery-grid">
-            <button class="gallery-item" data-full="gallery1.jpg">
-              <img src="gallery1.jpg" alt="Gallery photo 1" loading="eager" fetchpriority="high" decoding="async" />
-            </button>
-            <button class="gallery-item" data-full="img2.jpeg">
-              <img src="img2.jpeg" alt="Gallery photo 2" loading="lazy" />
-            </button>
-            <button class="gallery-item" data-full="3.jpeg">
-              <img src="3.jpeg" alt="Gallery photo 3" loading="lazy" />
-            </button>
-            <button class="gallery-item" data-full="ummeed poster.png">
-              <img src="ummeed poster.png" alt="Ummeed Foundation poster" loading="lazy" />
-            </button>
-            <button class="gallery-item" data-full="image1.png">
-              <img src="image1.png" alt="Gallery photo 1" loading="lazy" />
-            </button>
-            <button class="gallery-item" data-full="img1.jpeg">
-              <img src="img1.jpeg" alt="Gallery photo 2" loading="lazy" />
-            </button>
-            <button class="gallery-item" data-full="2.jpeg">
-              <img src="2.jpeg" alt="Gallery photo 3" loading="lazy" />
-            </button>
-            <button class="gallery-item" data-full="IMG5.jpeg">
-              <img src="IMG5.jpeg" alt="Ummeed Foundation poster" loading="lazy" />
-            </button>
+        <div class="v-gallery-scroll" aria-label="Scrollable gallery">
+          <div class="v-gallery-grid">
+            <figure class="v-gallery-card" data-caption="Career Guidance Session">
+              <img src="gallery1.jpg" alt="Career guidance session" loading="lazy" decoding="async" />
+              <figcaption>Career Guidance Session</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Student Engagement Activity">
+              <img src="img2.jpeg" alt="Student engagement activity" loading="lazy" decoding="async" />
+              <figcaption>Student Engagement Activity</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Volunteer Mentoring Session">
+              <img src="3.jpeg" alt="Volunteer mentoring session" loading="lazy" decoding="async" />
+              <figcaption>Volunteer Mentoring Session</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Program Poster">
+              <img src="ummeed poster.png" alt="Program poster" loading="lazy" decoding="async" />
+              <figcaption>Program Poster</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Education Drive">
+              <img src="image1.png" alt="Education drive moment" loading="lazy" decoding="async" />
+              <figcaption>Education Drive</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Student Motivation Session">
+              <img src="img1.jpeg" alt="Student motivation session" loading="lazy" decoding="async" />
+              <figcaption>Student Motivation Session</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Awareness Workshop">
+              <img src="2.jpeg" alt="Awareness workshop" loading="lazy" decoding="async" />
+              <figcaption>Awareness Workshop</figcaption>
+            </figure>
+            <figure class="v-gallery-card" data-caption="Foundation Outreach Event">
+              <img src="IMG5.jpeg" alt="Foundation outreach event" loading="lazy" decoding="async" />
+              <figcaption>Foundation Outreach Event</figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -238,14 +248,14 @@
           <p class="eyebrow">Contact Us</p>
           <h2>Let&apos;s build opportunity together</h2>
            <!-- <p>Email: hello@ummeedfoundation.org</p> -->
-          <!-- <p>Phone: +91 7248345823</p> 
+          <p>Phone: +91 7248345823</p> 
           <p>Phone: +91 9693925180</p> 
           <p>Location: Marghia SadarTola, Katihar Bihar </p>
           <div class="socials">
             <a href="https://www.instagram.com/ummeedfoundationofindia?igsh=djV6Z21rNXcxbzRz" aria-label="Instagram">Instagram</a>
-            <a href="https://www.facebook.com/share/171ZAX4BNT/" aria-label="Facebook">Facebook</a> -->
+            <a href="https://www.facebook.com/share/171ZAX4BNT/" aria-label="Facebook">Facebook</a>
              <!-- <a href="#" aria-label="YouTube">YouTube</a> -->
-          <!-- </div>
+          </div>
         </div>
         <form class="glass-card contact-form" action="https://formspree.io/f/mqeyppqb" method="POST">
           <input type="hidden" name="formType" value="Contact Form" />
@@ -272,7 +282,7 @@
     <div class="container footer-grid">
       <div>
         <h2>Ummeed Foundation of India</h2>
-        <p>Empowering students through education, mentorship, AI awareness, and future-ready skills.</p>
+        <p>Many talk about change. We work to make it happen.</p>
       </div>
       <div>
         <h4>Quick Links</h4>
@@ -295,12 +305,13 @@
   </footer>
 
   <dialog id="lightbox" class="lightbox">
-    <button id="closeLightbox" class="lightbox-close" aria-label="Close preview">&times;</button>
+    <button id="closeLightbox" class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
+    <button id="lightboxPrev" class="lightbox-nav lightbox-prev" type="button" aria-label="Previous photo">&#8249;</button>
     <img id="lightboxImage" src="" alt="Gallery preview" />
+    <button id="lightboxNext" class="lightbox-nav lightbox-next" type="button" aria-label="Next photo">&#8250;</button>
+    <p id="lightboxCounter" class="lightbox-counter" role="status" aria-live="polite"></p>
   </dialog>
 
   <script src="script.js"></script>
 </body>
 </html>
-
- -->
