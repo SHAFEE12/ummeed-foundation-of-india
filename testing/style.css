@@ -327,6 +327,7 @@ textarea:focus-visible {
   /* Desktop-only hero height increased; tablet/mobile are overridden in media queries below. */
   min-height: 112vh;
   overflow: hidden;
+  --hero-image: url("hero-960.jpg");
   /* Opposite curve depth control for the hero bottom (inward / concave). */
   --hero-curve-depth: clamp(52px, 9vw, 108px);
 }
@@ -339,8 +340,14 @@ textarea:focus-visible {
   /* Image + dark overlay combined so ::before can be used for the bottom inward curve. */
   background:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("hero.jpeg") center/cover no-repeat;
+    var(--hero-image) center/cover no-repeat;
   transform: scale(1);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    --hero-image: url("hero-1920.jpg");
+  }
 }
 
 .hero::before {
@@ -1146,15 +1153,48 @@ textarea:focus {
   color: #f8fafc;
 }
 
+.footer-tagline {
+  margin: 0;
+  max-width: 28ch;
+  color: #fde68a;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
 .footer a {
   display: block;
   color: #cbd5e1;
   margin: 4px 0;
 }
 
+.footer .footer-donate-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(79, 154, 104, 0.28);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 .footer a:hover,
 .footer a:focus-visible {
   color: #ffffff;
+}
+
+.footer .footer-donate-link:hover,
+.footer .footer-donate-link:focus-visible {
+  background: var(--secondary-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(79, 154, 104, 0.32);
 }
 
 .copyright {
