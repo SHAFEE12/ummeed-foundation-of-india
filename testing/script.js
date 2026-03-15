@@ -292,7 +292,7 @@ counters.forEach((counter) => counterObserver.observe(counter));
 const testimonials = [
   {
     quote: 'Because of ummeed foundation, i received guidance for my studies. Their support helped me continue my education with confidance.',
-    author: 'Ashutosh, Student'
+    author: 'zaid ,student'
   },
   {
     quote: 'I truly believe this initiative will grow into something meaningful for many people. Every step we take is driven by passion and a commitment to making a difference.',
