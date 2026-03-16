@@ -326,13 +326,13 @@ textarea:focus-visible {
   color: var(--muted);
 }
 
-/* background img */
+
 .hero {
   position: relative;
-  /* Desktop-only hero height increased; tablet/mobile are overridden in media queries below. */
+ 
   min-height: 112vh;
   overflow: hidden;
-  /* Opposite curve depth control for the hero bottom (inward / concave). */
+ 
   --hero-curve-depth: clamp(52px, 9vw, 108px);
 }
 
@@ -341,7 +341,7 @@ textarea:focus-visible {
   position: absolute;
   inset: 0;
   z-index: 0;
-  /* Explicit background-image rules are more reliable here than a var() inside shorthand. */
+
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("hero.jpeg");
@@ -360,10 +360,10 @@ textarea:focus-visible {
   bottom: calc(-1 * var(--hero-curve-depth));
   transform: translateX(-50%);
   z-index: 1;
-  /* This ellipse (same color as next section) cuts into the hero for a Netflix-style inward bottom curve. */
+ 
   background: var(--section-bg);
   border-radius: 50%;
-  /* Border accent for the curved edge so the inward arc is clearly defined. */
+ 
   border: 3px solid rgba(34, 197, 94, 0.92);
   pointer-events: none;
 }
@@ -371,7 +371,7 @@ textarea:focus-visible {
 .hero-grid {
   position: relative;
   z-index: 2;
-  /* Keep hero content vertically centered within the taller desktop hero. */
+
   min-height: calc(112vh - 110px);
 }
 
@@ -391,7 +391,7 @@ textarea:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  /* Desktop/tablet: keep CTAs higher (closer to hero heading block). */
+  
   margin-top: clamp(16px, 2.4vw, 34px);
   padding-top: 0;
 }
@@ -556,7 +556,7 @@ textarea:focus-visible {
   color: var(--muted);
 }
 
-/* Professional title style for program cards (e.g., Education Support). */
+
 .programs-grid .card h3 {
   font-family: "Inter", sans-serif;
   font-weight: 700;
@@ -566,7 +566,6 @@ textarea:focus-visible {
   text-shadow: none;
 }
 
-/* Professional title style for Events and Involved section card headings. */
 .events-grid .card h3,
 .involved-cards .card h3 {
   font-family: "Inter", sans-serif;
@@ -693,8 +692,7 @@ textarea:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Improve visibility for Events heading only:
-   override global cursive + gradient heading style with bold black text. */
+
 #events .section-head h2 {
   font-family: "Inter", sans-serif;
   font-weight: 800;
@@ -1942,8 +1940,6 @@ textarea:focus {
   }
 }
 
-/* Responsive hero sizing:
-   keeps desktop unchanged while making tablet hero more compact and balanced. */
 @media (max-width: 1024px) {
   .hero {
     min-height: 82vh;
@@ -1951,14 +1947,12 @@ textarea:focus {
 
   .hero-grid {
     min-height: calc(82vh - 96px);
-    /* Reduced top offset + vertical centering for readable hero copy/buttons. */
+ 
     padding-top: clamp(88px, 10vw, 124px);
     align-content: center;
   }
 }
 
-/* Mobile-specific compaction:
-   further reduces hero height so image stays impactful without taking too much screen space. */
 @media (max-width: 768px) {
   .hero {
     min-height: 70vh;
@@ -1971,13 +1965,12 @@ textarea:focus {
   }
 
   .hero .hero-actions {
-    /* Mobile: push CTAs lower for a more balanced vertical flow. */
+
     margin-top: clamp(28px, 8vw, 52px);
   }
 }
 
-/* Desktop-only hero content lift:
-   moves eyebrow, heading, and CTA buttons upward without affecting tablet/mobile. */
+
 @media (min-width: 1025px) {
   .hero-copy {
     justify-content: flex-start;
@@ -1999,8 +1992,7 @@ body {
   background-size: 10px 10px;
 }
 
-/* Final gallery layout lock:
-   desktop 3, tablet 2, mobile 1 (progressive reveal on scroll). */
+
 .gallery-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
@@ -2062,7 +2054,6 @@ body {
   }
 }
 
-/* Vertical scrolling gallery section (isolated styles) */
 #gallery .container {
   width: min(1320px, 96vw);
 }
@@ -2538,10 +2529,10 @@ textarea:focus-visible {
   bottom: calc(-1 * var(--hero-curve-depth));
   transform: translateX(-50%);
   z-index: 1;
-  /* This ellipse (same color as next section) cuts into the hero for a Netflix-style inward bottom curve. */
+
   background: var(--section-bg);
   border-radius: 50%;
-  /* Border accent for the curved edge so the inward arc is clearly defined. */
+ 
   border: 3px solid rgba(34, 197, 94, 0.92);
   pointer-events: none;
 }
@@ -2569,7 +2560,7 @@ textarea:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  /* Desktop/tablet: keep CTAs higher (closer to hero heading block). */
+
   margin-top: clamp(16px, 2.4vw, 34px);
   padding-top: 0;
 }
@@ -2734,7 +2725,6 @@ textarea:focus-visible {
   color: var(--muted);
 }
 
-/* Professional title style for program cards (e.g., Education Support). */
 .programs-grid .card h3 {
   font-family: "Inter", sans-serif;
   font-weight: 700;
@@ -2744,7 +2734,7 @@ textarea:focus-visible {
   text-shadow: none;
 }
 
-/* Professional title style for Events and Involved section card headings. */
+
 .events-grid .card h3,
 .involved-cards .card h3 {
   font-family: "Inter", sans-serif;
@@ -2871,8 +2861,7 @@ textarea:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Improve visibility for Events heading only:
-   override global cursive + gradient heading style with bold black text. */
+
 #events .section-head h2 {
   font-family: "Inter", sans-serif;
   font-weight: 800;
@@ -4120,8 +4109,7 @@ textarea:focus {
   }
 }
 
-/* Responsive hero sizing:
-   keeps desktop unchanged while making tablet hero more compact and balanced. */
+
 @media (max-width: 1024px) {
   .hero {
     min-height: 82vh;
@@ -4129,14 +4117,13 @@ textarea:focus {
 
   .hero-grid {
     min-height: calc(82vh - 96px);
-    /* Reduced top offset + vertical centering for readable hero copy/buttons. */
+    
     padding-top: clamp(88px, 10vw, 124px);
     align-content: center;
   }
 }
 
-/* Mobile-specific compaction:
-   further reduces hero height so image stays impactful without taking too much screen space. */
+
 @media (max-width: 768px) {
   .hero {
     min-height: 70vh;
@@ -4149,13 +4136,11 @@ textarea:focus {
   }
 
   .hero .hero-actions {
-    /* Mobile: push CTAs lower for a more balanced vertical flow. */
+  
     margin-top: clamp(28px, 8vw, 52px);
   }
 }
 
-/* Desktop-only hero content lift:
-   moves eyebrow, heading, and CTA buttons upward without affecting tablet/mobile. */
 @media (min-width: 1025px) {
   .hero-copy {
     justify-content: flex-start;
@@ -4240,7 +4225,6 @@ body {
   }
 }
 
-/* Vertical scrolling gallery section (isolated styles) */
 #gallery .container {
   width: min(1320px, 96vw);
 }
