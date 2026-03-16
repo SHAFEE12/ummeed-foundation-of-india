@@ -27,7 +27,7 @@ function writeStorage(storage, key, value) {
   try {
     storage.setItem(key, value);
   } catch (error) {
-    // Ignore storage write failures so the UI still works in private modes.
+    
   }
 }
 
@@ -290,7 +290,7 @@ function buildUpiIntentUrl(upiSupport) {
   return `upi://pay?${params.toString()}`;
 }
 
-// Defensive guard: ensure involved/contact forms always submit as POST to Formspree.
+
 document.addEventListener('submit', (event) => {
   const form = event.target;
   if (!(form instanceof HTMLFormElement)) return;
@@ -1314,7 +1314,7 @@ function createDonateForm(config, closeModal) {
 }
 
 function createModal(config) {
-  // Reusable modal shell: creates overlay, header, body and open/close behavior.
+
   const overlay = document.createElement('div');
   overlay.className = 'ufi-modal-overlay';
   overlay.setAttribute('aria-hidden', 'true');
@@ -1396,7 +1396,7 @@ function createModal(config) {
 }
 
 function initInvolvedSectionModals() {
-  // Maps existing card titles to their respective modal + form configuration.
+
   const involvedCards = document.querySelectorAll('#involved .involved-cards .card');
   if (!involvedCards.length) return;
 
@@ -1579,7 +1579,7 @@ function initInvolvedSectionModals() {
     modalByHeading[heading] = createModal(modalConfigByHeading[heading]);
   });
 
-  // Allows external triggers (for example hero buttons) to open the same involved modals.
+
   const modalTriggers = document.querySelectorAll('[data-involved-modal]');
   modalTriggers.forEach((trigger) => {
     const heading = trigger.getAttribute('data-involved-modal')?.trim();
