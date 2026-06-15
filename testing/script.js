@@ -4,7 +4,6 @@ const pageSections = document.querySelectorAll('.section');
 const welcomePopup = document.getElementById('welcomePopup');
 const welcomePopupClose = document.getElementById('welcomePopupClose');
 const welcomePopupDismiss = document.getElementById('welcomePopupDismiss');
-const welcomeVolunteerButton = document.getElementById('welcomeVolunteerButton');
 const welcomeLearnMore = document.getElementById('welcomeLearnMore');
 const mobileNavQuery = window.matchMedia('(max-width: 900px)');
 const fallbackFormspreeEndpoint = 'https://formspree.io/f/mqeyppqb';
@@ -13,7 +12,7 @@ const formspreeEndpoint = /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(conf
   ? configuredFormspreeEndpoint
   : fallbackFormspreeEndpoint;
 const isFormspreeReady = /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(formspreeEndpoint);
-const welcomePopupSeenKey = 'ummeedWelcomePopupSeen';
+const welcomePopupSeenKey = 'ummeedEventPopupSeen2026';
 
 function readStorage(storage, key) {
   try {
@@ -27,7 +26,18 @@ function writeStorage(storage, key, value) {
   try {
     storage.setItem(key, value);
   } catch (error) {
-    
+    // Ignore storage write failures so the UI still works in private modes.
+  }
+}
+
+function resolveAssetPath(path) {
+  const assetPath = (path || '').trim();
+  if (!assetPath) return '';
+
+  try {
+    return new URL(assetPath, window.location.href).href;
+  } catch (error) {
+    return assetPath;
   }
 }
 
@@ -62,8 +72,8 @@ function initWelcomePopup() {
 
     window.requestAnimationFrame(() => {
       welcomePopup.classList.add('is-open');
-      if (welcomeVolunteerButton instanceof HTMLElement) {
-        welcomeVolunteerButton.focus();
+      if (welcomeLearnMore instanceof HTMLElement) {
+        welcomeLearnMore.focus();
       } else if (welcomePopupClose instanceof HTMLElement) {
         welcomePopupClose.focus();
       }
@@ -85,15 +95,6 @@ function initWelcomePopup() {
   const backdrop = welcomePopup.querySelector('[data-welcome-close]');
   if (backdrop instanceof HTMLElement) {
     backdrop.addEventListener('click', () => {
-      if (showTimer) {
-        window.clearTimeout(showTimer);
-      }
-      hideWelcomePopup();
-    });
-  }
-
-  if (welcomeVolunteerButton instanceof HTMLButtonElement) {
-    welcomeVolunteerButton.addEventListener('click', () => {
       if (showTimer) {
         window.clearTimeout(showTimer);
       }
@@ -290,7 +291,7 @@ function buildUpiIntentUrl(upiSupport) {
   return `upi://pay?${params.toString()}`;
 }
 
-
+// Defensive guard: ensure involved/contact forms always submit as POST to Formspree.
 document.addEventListener('submit', (event) => {
   const form = event.target;
   if (!(form instanceof HTMLFormElement)) return;
@@ -418,12 +419,14 @@ function createTestimonialCard(item) {
   card.className = 'testimonial-card';
 
   const quote = document.createElement('blockquote');
-  quote.textContent = `"${item.quote}"`;
+  quote.textContent = `“${item.quote}”`;
 
   const author = document.createElement('cite');
-  author.textContent = item.author;
+  author.textContent = `— ${item.author}`;
 
-  card.append(quote, author);
+  card.appendChild(quote);
+  card.appendChild(author);
+
   return card;
 }
 
@@ -1258,11 +1261,12 @@ function createDonateForm(config, closeModal) {
 
     const upiQr = document.createElement('img');
     upiQr.className = 'ufi-upi-qr';
-    upiQr.src = config.upiSupport.qrImage || 'qr.png';
+    upiQr.src = resolveAssetPath(config.upiSupport.qrImage || 'qr.png');
     upiQr.alt = 'UPI QR Code';
     upiQr.width = 200;
     upiQr.height = 200;
-    upiQr.loading = 'lazy';
+    upiQr.decoding = 'async';
+    upiQr.fetchPriority = 'high';
 
     if (upiIntentUrl) {
       const upiQrLink = document.createElement('a');
@@ -1314,7 +1318,7 @@ function createDonateForm(config, closeModal) {
 }
 
 function createModal(config) {
-
+  // Reusable modal shell: creates overlay, header, body and open/close behavior.
   const overlay = document.createElement('div');
   overlay.className = 'ufi-modal-overlay';
   overlay.setAttribute('aria-hidden', 'true');
@@ -1396,7 +1400,7 @@ function createModal(config) {
 }
 
 function initInvolvedSectionModals() {
-
+  // Maps existing card titles to their respective modal + form configuration.
   const involvedCards = document.querySelectorAll('#involved .involved-cards .card');
   if (!involvedCards.length) return;
 
@@ -1579,7 +1583,7 @@ function initInvolvedSectionModals() {
     modalByHeading[heading] = createModal(modalConfigByHeading[heading]);
   });
 
-
+  // Allows external triggers (for example hero buttons) to open the same involved modals.
   const modalTriggers = document.querySelectorAll('[data-involved-modal]');
   modalTriggers.forEach((trigger) => {
     const heading = trigger.getAttribute('data-involved-modal')?.trim();
@@ -1623,5 +1627,451 @@ function initInvolvedSectionModals() {
 
 initWelcomePopup();
 initInvolvedSectionModals();
+
+
+(() => {
+    const container = document.querySelector(".hero");
+    const canvas = document.querySelector("#liquidCanvas");
+
+    if (!container || !canvas) return;
+
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+    const source = document.createElement("canvas");
+    const src = source.getContext("2d", { willReadFrequently: true });
+
+    const fieldCanvas = document.createElement("canvas");
+    const field = fieldCanvas.getContext("2d", { willReadFrequently: true });
+
+    const outputCanvas = document.createElement("canvas");
+    const out = outputCanvas.getContext("2d", { willReadFrequently: true });
+
+    const bgImage = new Image();
+
+  bgImage.src = "hero-960.jpg";
+
+    const pointer = {
+        x: 0.5,
+        y: 0.5,
+        px: 0.5,
+        py: 0.5,
+        active: false
+    };
+
+    let width = 0;
+    let height = 0;
+    let scale = 0.5;
+    let ripples = [];
+
+    function resize() {
+        width = container.clientWidth;
+        height = container.clientHeight;
+
+        scale = width < 760 ? 0.58 : 0.5;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        source.width = Math.max(1, Math.floor(width * scale));
+        source.height = Math.max(1, Math.floor(height * scale));
+
+        fieldCanvas.width = source.width;
+        fieldCanvas.height = source.height;
+
+        outputCanvas.width = source.width;
+        outputCanvas.height = source.height;
+    }
+
+    function addRipple(x, y, force = 1) {
+        ripples.push({
+            x,
+            y,
+            age: 0,
+            life: 180,
+            force
+        });
+
+        if (ripples.length > 92) {
+            ripples.shift();
+        }
+    }
+
+    function drawBackground(context, w, h) {
+        context.fillStyle = "#000";
+        context.fillRect(0, 0, w, h);
+
+        if (bgImage.complete && bgImage.naturalWidth) {
+            const imageRatio = bgImage.naturalWidth / bgImage.naturalHeight;
+            const canvasRatio = w / h;
+
+            const drawW =
+                canvasRatio > imageRatio
+                    ? w
+                    : h * imageRatio;
+
+            const drawH =
+                canvasRatio > imageRatio
+                    ? w / imageRatio
+                    : h;
+
+            const drawX = (w - drawW) * 0.5;
+            const drawY = (h - drawH) * 0.5;
+
+            context.drawImage(
+                bgImage,
+                drawX,
+                drawY,
+                drawW,
+                drawH
+            );
+        }
+
+        context.fillStyle = "rgba(0,0,0,0.38)";
+        context.fillRect(0, 0, w, h);
+    }
+
+    function renderSource() {
+        const w = source.width;
+        const h = source.height;
+
+        src.setTransform(1, 0, 0, 1, 0, 0);
+
+        drawBackground(src, w, h);
+    }
+
+    function renderField(time) {
+        const w = fieldCanvas.width;
+        const h = fieldCanvas.height;
+
+        field.clearRect(0, 0, w, h);
+
+        field.fillStyle = "rgb(128,128,128)";
+        field.fillRect(0, 0, w, h);
+
+        field.globalCompositeOperation = "lighter";
+
+        for (const ripple of ripples) {
+            const progress = ripple.age / ripple.life;
+
+            const radius =
+                (0.035 + progress * 0.34) *
+                Math.min(w, h);
+
+            const x = ripple.x * w;
+            const y = ripple.y * h;
+
+            const alpha =
+                (1 - progress) *
+                0.72 *
+                ripple.force;
+
+            const g = field.createRadialGradient(
+                x,
+                y,
+                radius * 0.62,
+                x,
+                y,
+                radius
+            );
+
+            g.addColorStop(0, "rgba(0,0,0,0)");
+            g.addColorStop(
+                0.44,
+                `rgba(255,255,255,${alpha})`
+            );
+            g.addColorStop(
+                0.58,
+                `rgba(0,0,0,${alpha})`
+            );
+            g.addColorStop(1, "rgba(0,0,0,0)");
+
+            field.fillStyle = g;
+
+            field.beginPath();
+            field.arc(
+                x,
+                y,
+                radius,
+                0,
+                Math.PI * 2
+            );
+            field.fill();
+
+            ripple.age++;
+        }
+
+        field.globalCompositeOperation =
+            "source-over";
+
+        ripples = ripples.filter(
+            ripple => ripple.age < ripple.life
+        );
+
+        const pulseX =
+            (0.5 +
+                Math.sin(time * 0.00031) *
+                    0.18) *
+            w;
+
+        const pulseY =
+            (0.52 +
+                Math.cos(time * 0.00027) *
+                    0.12) *
+            h;
+
+        const glow = field.createRadialGradient(
+            pulseX,
+            pulseY,
+            0,
+            pulseX,
+            pulseY,
+            Math.min(w, h) * 0.42
+        );
+
+        glow.addColorStop(
+            0,
+            "rgba(255,255,255,0.07)"
+        );
+        glow.addColorStop(
+            0.5,
+            "rgba(0,0,0,0.05)"
+        );
+        glow.addColorStop(
+            1,
+            "rgba(0,0,0,0)"
+        );
+
+        field.fillStyle = glow;
+        field.fillRect(0, 0, w, h);
+    }
+
+    function distortToScreen() {
+        const w = source.width;
+        const h = source.height;
+
+        const base = src.getImageData(
+            0,
+            0,
+            w,
+            h
+        );
+
+        const map = field.getImageData(
+            0,
+            0,
+            w,
+            h
+        );
+
+        const output =
+            out.createImageData(w, h);
+
+        const strength = Math.max(
+            12,
+            Math.min(w, h) * 0.078
+        );
+
+        for (let y = 1; y < h - 1; y++) {
+            for (
+                let x = 1;
+                x < w - 1;
+                x++
+            ) {
+                const i =
+                    (y * w + x) * 4;
+
+                const left =
+                    map.data[i - 4];
+
+                const right =
+                    map.data[i + 4];
+
+                const top =
+                    map.data[i - w * 4];
+
+                const bottom =
+                    map.data[i + w * 4];
+
+                const dx =
+                    ((right - left) /
+                        255) *
+                    strength;
+
+                const dy =
+                    ((bottom - top) /
+                        255) *
+                    strength;
+
+                const sx = Math.max(
+                    0,
+                    Math.min(
+                        w - 1,
+                        Math.round(x + dx)
+                    )
+                );
+
+                const sy = Math.max(
+                    0,
+                    Math.min(
+                        h - 1,
+                        Math.round(y + dy)
+                    )
+                );
+
+                const si =
+                    (sy * w + sx) * 4;
+
+                output.data[i] =
+                    base.data[si];
+
+                output.data[i + 1] =
+                    base.data[si + 1];
+
+                output.data[i + 2] =
+                    base.data[si + 2];
+
+                output.data[i + 3] =
+                    255;
+            }
+        }
+
+        out.putImageData(
+            output,
+            0,
+            0
+        );
+
+        ctx.clearRect(
+            0,
+            0,
+            width,
+            height
+        );
+
+        ctx.drawImage(
+            outputCanvas,
+            0,
+            0,
+            width,
+            height
+        );
+    }
+
+    function animate(time) {
+        if (pointer.active) {
+            const speed = Math.hypot(
+                pointer.x - pointer.px,
+                pointer.y - pointer.py
+            );
+
+            if (speed > 0.004) {
+                addRipple(
+                    pointer.x,
+                    pointer.y,
+                    Math.min(
+                        1.8,
+                        speed * 75
+                    )
+                );
+            }
+        }
+
+        pointer.px +=
+            (pointer.x - pointer.px) *
+            0.55;
+
+        pointer.py +=
+            (pointer.y - pointer.py) *
+            0.55;
+
+        renderSource();
+        renderField(time);
+        distortToScreen();
+
+        requestAnimationFrame(
+            animate
+        );
+    }
+
+    container.addEventListener(
+        "pointermove",
+        event => {
+            const rect =
+                container.getBoundingClientRect();
+
+            pointer.active = true;
+
+            pointer.x =
+                (event.clientX -
+                    rect.left) /
+                rect.width;
+
+            pointer.y =
+                (event.clientY -
+                    rect.top) /
+                rect.height;
+        }
+    );
+
+    container.addEventListener(
+        "pointerdown",
+        event => {
+            const rect =
+                container.getBoundingClientRect();
+
+            pointer.active = true;
+
+            pointer.x =
+                (event.clientX -
+                    rect.left) /
+                rect.width;
+
+            pointer.y =
+                (event.clientY -
+                    rect.top) /
+                rect.height;
+
+            addRipple(
+                pointer.x,
+                pointer.y,
+                1.6
+            );
+        }
+    );
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
+
+    bgImage.onload = () => {
+        renderSource();
+    };
+
+    resize();
+    requestAnimationFrame(
+        animate
+    );
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
