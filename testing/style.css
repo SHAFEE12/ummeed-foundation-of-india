@@ -322,9 +322,9 @@ textarea:focus-visible {
   max-width: 62ch;
 }
 
-.hero-copy > p:not(.eyebrow) {
+/* .hero-copy > p:not(.eyebrow) {
   color: var(--muted);
-}
+} */
 
 /* background img */
 .hero {
