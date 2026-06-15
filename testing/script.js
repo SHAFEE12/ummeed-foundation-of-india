@@ -1648,7 +1648,7 @@ initInvolvedSectionModals();
 
     const bgImage = new Image();
 
-  bgImage.src = "hero-960.jpg";
+  bgImage.src = "hero.jpeg";
 
     const pointer = {
         x: 0.5,
