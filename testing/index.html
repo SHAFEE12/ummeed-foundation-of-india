@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head> 
   <meta charset="UTF-8" />
@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="preload" as="image" href="hero.jpeg" fetchpriority="high" />
+  <link rel="preload" as="image" href="qr.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -52,19 +53,29 @@
 
     <section class="hero section" aria-labelledby="hero-title">
 
-      
-     
-      <div class="container hero-grid">
+    <canvas id="liquidCanvas"></canvas>
+
+    <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Non-Profit Educational Organization</p>
-          <h1 id="hero-title">Empowering Young Minds. Building India&apos;s Future.</h1>
-          <div class="hero-actions">
-            <button class="btn" type="button" data-involved-modal="Volunteer Signup" aria-haspopup="dialog">Join as Volunteer</button>
-            <button class="btn btn-ghost" type="button" data-involved-modal="Donate" aria-haspopup="dialog">Donate Now</button>
-          </div>
+            <p class="eyebrow">Non-Profit Educational Organization</p>
+
+            <h1 id="hero-title">
+                Empowering Young Minds. Building India's Future.
+            </h1>
+
+            <div class="hero-actions">
+                <button class="btn" type="button" data-involved-modal="Volunteer Signup">
+                    Join as Volunteer
+                </button>
+
+                <button class="btn btn-ghost" type="button" data-involved-modal="Donate">
+                    Donate Now
+                </button>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
+
+</section>
 
     <section id="about" class="section">
       <div class="container about-layout">
@@ -248,8 +259,8 @@
           <p class="eyebrow">Contact Us</p>
           <h2>Let&apos;s build opportunity together</h2>
            <!-- <p>Email: hello@ummeedfoundation.org</p> -->
-          
-        
+          <p>Phone: +91 7248345823</p> 
+          <p>Phone: +91 9693925180</p> 
           <p>Location: Marghia SadarTola, Katihar Bihar </p>
           <div class="socials">
             <a href="https://www.instagram.com/ummeedfoundationofindia?igsh=djV6Z21rNXcxbzRz" aria-label="Instagram">Instagram</a>
@@ -311,6 +322,20 @@
     <button id="lightboxNext" class="lightbox-nav lightbox-next" type="button" aria-label="Next photo">&#8250;</button>
     <p id="lightboxCounter" class="lightbox-counter" role="status" aria-live="polite"></p>
   </dialog>
+
+  <div class="welcome-popup" id="welcomePopup" aria-hidden="true" hidden>
+    <div class="welcome-popup-backdrop" data-welcome-close></div>
+    <div class="welcome-popup-panel" role="dialog" aria-modal="true" aria-labelledby="welcomePopupTitle">
+      <button class="welcome-popup-close" id="welcomePopupClose" type="button" aria-label="Close event popup">&times;</button>
+      <img class="welcome-popup-image" src="event.png" alt="Ummeed Foundation student mentorship event poster" decoding="async" />
+      <p class="welcome-popup-eyebrow">Upcoming Event</p>
+      <h3 id="welcomePopupTitle">Join the Student Mentorship Program</h3>
+      <div class="welcome-popup-actions">
+        <a class="btn welcome-popup-learn" id="welcomeLearnMore" href="#events">Learn More</a>
+        <button class="btn welcome-popup-secondary" id="welcomePopupDismiss" type="button">Close</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
