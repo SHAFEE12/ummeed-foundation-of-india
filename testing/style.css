@@ -308,13 +308,13 @@ textarea:focus-visible {
   padding-block: 0;
 }
 
-.hero-copy .eyebrow {
+/* .hero-copy .eyebrow {
   margin: auto 0 14px;
   display: inline-block;
   color: #22c55e;
   font-weight: 700;
   letter-spacing: 0.03em;
-}
+} */
 
 .hero-copy p {
   color: var(--muted);
