@@ -1667,7 +1667,7 @@ initInvolvedSectionModals();
         width = container.clientWidth;
         height = container.clientHeight;
 
-        scale = width < 760 ? 0.58 : 0.5;
+        scale = width < 768 ? 0.22 : 0.5;
 
         canvas.width = width;
         canvas.height = height;
