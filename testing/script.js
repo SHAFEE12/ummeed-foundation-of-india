@@ -2039,20 +2039,20 @@ initInvolvedSectionModals();
         }
     );
 
-    window.addEventListener(
-        "resize",
-        resize
-    );
+//     window.addEventListener(
+//         "resize",
+//         resize
+//     );
 
-    bgImage.onload = () => {
-        renderSource();
-    };
+//     bgImage.onload = () => {
+//         renderSource();
+//     };
 
-    resize();
-    requestAnimationFrame(
-        animate
-    );
-})();
+//     resize();
+//     requestAnimationFrame(
+//         animate
+//     );
+// })();
 
 
 
