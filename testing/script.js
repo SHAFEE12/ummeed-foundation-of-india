@@ -2056,43 +2056,6 @@ initInvolvedSectionModals();
 
 
 
-window.addEventListener("touchstart", (e) => {
-const touch = e.touches[0];
-
-```
-pointer.active = true;
-
-pointer.x = touch.clientX / width;
-pointer.y = touch.clientY / height;
-
-addRipple(pointer.x, pointer.y, 1.8);
-```
-
-}, { passive: true });
-
-window.addEventListener("touchmove", (e) => {
-const touch = e.touches[0];
-
-```
-pointer.active = true;
-
-pointer.x = touch.clientX / width;
-pointer.y = touch.clientY / height;
-
-addRipple(pointer.x, pointer.y, 1.2);
-```
-
-}, { passive: true });
-
-window.addEventListener("touchend", () => {
-pointer.active = false;
-}, { passive: true });
-
-
-
-
-
-
 
 
 
